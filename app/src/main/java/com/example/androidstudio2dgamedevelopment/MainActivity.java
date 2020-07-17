@@ -15,11 +15,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Window window = getWindow();
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
 
         //Set content view to game, so that objets in the Game class can be rendered to the screen
         setContentView(new Game (this));

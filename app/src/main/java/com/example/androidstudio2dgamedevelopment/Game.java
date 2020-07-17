@@ -3,6 +3,7 @@ package com.example.androidstudio2dgamedevelopment;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -12,8 +13,24 @@ import androidx.core.content.ContextCompat;
 //Game class manages all objects in the game and is responsible for updating all states and render all objects to the screen
 
 class Game extends SurfaceView implements SurfaceHolder.Callback{
+    private final Player player;
     private GameLoop gameLoop;
     private Context context;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        // Handle touch event actions
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                player.setPosition((double ) event.getX(), (double) event.getY());
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                player.setPosition((double ) event.getX(), (double) event.getY());
+        }
+
+        return super.onTouchEvent(event);
+    }
 
     public Game(Context context) {
         super(context);
@@ -24,6 +41,9 @@ class Game extends SurfaceView implements SurfaceHolder.Callback{
 
         this.context=context;
         gameLoop = new GameLoop(this, surfaceHolder);
+
+        //Initialize player
+        player = new Player(getContext(),500,500,30);
 
         setFocusable(true);
     }
@@ -48,6 +68,8 @@ class Game extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
+
+        player.draw(canvas);
     }
 
     public void drawUPS(Canvas canvas){
@@ -70,6 +92,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback{
 
     public void update(){
 
+        player.update();
     }
 
 }
