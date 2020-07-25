@@ -34,18 +34,16 @@ class Joystick {
         outerCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         innerCirclePaint= new Paint();
-        innerCirclePaint.setColor(Color.BLACK);
+        innerCirclePaint.setColor(Color.BLUE);
         innerCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
-
-
     }
 
+    //If the touchposition is within the outer circle the joystick is said to be pressed.
     public boolean isPressed(double touchPositionX, double touchPositionY) {
         joystickCenterToTouchDistance=Math.sqrt(
                 Math.pow(outerCircleCenterPositionX-touchPositionX,2) +
                 Math.pow(outerCircleCenterPositionY-touchPositionY,2));
-    return joystickCenterToTouchDistance< outerCircleRadius;
+    return joystickCenterToTouchDistance < outerCircleRadius;
     }
 
     public void setIsPressed(boolean isPressed){
@@ -90,9 +88,11 @@ class Joystick {
     }
 
     public double getActuatorY() {
-        return actuatorX;
+        return actuatorY;
 }
 
     public void resetActuator() {
+        actuatorX=0;
+        actuatorY=0;
     }
 }
